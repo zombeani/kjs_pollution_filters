@@ -1,17 +1,45 @@
-# pollution filters
-kubejs scripts that adds simple pollution filters for early game terrafirmacraft
+## pollution filters
+kubejs scripts that adds simple pollution filters for terrafirmacraft in minecraft forge 1.20.1
 
-example code from this video: [https://www.youtube.com/watch?v=frVbxNTwT2g](https://www.youtube.com/watch?v=D7lAIOUmb2w)
+inspired by this video: https://www.youtube.com/watch?v=D7lAIOUmb2w
 
-its for forge 1.20.1, and you need TerraFirmaCraft, FirmaLife, KubeJS, Pollution of the Realms, and Advanced Chimneys
+these scripts are set up for players who want a more immersive way to manage pollution in terrafirmacraft
 
-# features
-right clicking a filter with an empty hand should report how much pollution it has collected (if any)
+## requirements
+to use these scripts, you'll need:
+minecraft forge 1.20.1
+terrafirmacraft
+firmalife
+pollution of the realms
+advanced chimneys
+kubejs
 
-reed filter: only absorbs carbon, but absorbs it twice as fast as a charcoal filter. it can only hold 4 charges max per block, and it doesn't give any resources. it is flammable, and doesnt drop itself when broken so it cant be easily replaced. this is meant to be a very early game way to deal with carbon, which is the majority of pollution
+## features
+these filters help reduce pollution from crafting and smelting, giving you multiple options depending on your tech level and available resources.
 
-charcoal filter: absorbs carbon and dust, and can also be brushed clean for soot. it can hold 8 charges per block
+right click a filter block with an empty hand to check how much pollution it has stored (if any).
+brush filters with a brush to remove soot or residue.
+some filters can be cleaned using vinegar in a tfc-compatible fluid container.
+all filters except for reed can be broken and replaced to clean it, but you lose the resources.
 
-limewater filter: only absorbs sulfur, and can also be right clicked with a tfc compatible fluid container with vinegar inside to extract sulfur powder. it can also be brushed clean, but it wont give any resources. it can hold 8 charges per block
+## filter types
+*reed filter*
+absorbs carbon only.
+holds up to 4 charges per block.
+flammable, does not drop itself when broken.
 
-chromium filter: absorbs all 3 forms of pollution. can be brushed for soot, or right clicked with a fluid container with vinegar to get sulfur powder. it can hold 16 charges per block between both pollution types added up
+*charcoal filter*
+absorbs carbon and dust.
+can be brushed clean to get soot.
+holds up to 8 charges per block.
+
+*limewater filter*
+absorbs sulfur only.
+right click with vinegar in a fluid container to get sulfur powder.
+can be brushed clean for no resources.
+holds up to 8 charges per block.
+
+*chromium filter*
+absorbs carbon, dust, and sulfur.
+brush for soot, or use vinegar for sulfur powder.
+holds up to 16 total charges across all pollution types added up.

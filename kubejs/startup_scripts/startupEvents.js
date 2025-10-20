@@ -7,7 +7,7 @@ StartupEvents.registry("minecraft:block", event => {
         .resistance(0.5)
         .opaque(true)
         .material("wood")
-        .tagBlock('minecraft:mineable/hoe')
+        .tagBlock("minecraft:mineable/hoe")
         .soundType(SoundType.BIG_DRIPLEAF)
         .blockEntity(block => {
             block.initialData({used: 0})
@@ -32,7 +32,7 @@ StartupEvents.registry("minecraft:block", event => {
         .hardness(2.0)
         .resistance(3.0)
         .opaque(true)
-        .tagBlock('minecraft:mineable/pickaxe')
+        .tagBlock("minecraft:mineable/pickaxe")
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
             block.initialData({used: 0})
@@ -115,3 +115,5 @@ StartupEvents.registry("minecraft:block", event => {
         .textureAll("create:block/brass_block")
         .displayName("Chromium Filter");
 });
+
+BlockEvents.modification(event => { event.modify("minecraft:fire", block => { block.setFlammable("kubejs:reed_filter", 30, 60); }); });

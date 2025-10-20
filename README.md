@@ -3,7 +3,7 @@ kubejs scripts that adds simple pollution filters for early game terrafirmacraft
 
 example code from this video: [https://www.youtube.com/watch?v=frVbxNTwT2g](https://www.youtube.com/watch?v=D7lAIOUmb2w)
 
-its for forge 1.20.1, and you need TerraFirmaCraft, KubeJS, Pollution of the Realms, Advanced Chimneys, and Create
+its for forge 1.20.1, and you need TerraFirmaCraft, KubeJS, Pollution of the Realms, and Advanced Chimneys
 
 # features
 right clicking a filter with an empty hand should report how much pollution it has collected (if any)

@@ -7,12 +7,12 @@ these scripts are set up for players who want a more immersive way to manage pol
 
 ## requirements
 to use these scripts, you'll need:
-minecraft forge 1.20.1,
-terrafirmacraft,
-firmalife,
-pollution of the realms,
-advanced chimneys,
-and kubejs
+Minecraft Forge 1.20.1,
+TerraFirmaCraft,
+FirmaLife,
+Pollution of the Realms,
+Advanced Chimneys,
+and KubeJS
 
 ## features
 these filters help reduce pollution from crafting and smelting, giving you multiple options depending on your tech level and available resources.

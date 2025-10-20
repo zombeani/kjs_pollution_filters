@@ -1,5 +1,5 @@
 ## pollution filters
-kubejs scripts that adds simple pollution filters for terrafirmacraft in minecraft forge 1.20.1
+kubejs scripts that adds pollution of the realms compatible filters for early game terrafirmacraft. forge 1.20.1
 
 inspired by this video: https://www.youtube.com/watch?v=D7lAIOUmb2w
 
@@ -7,18 +7,13 @@ these scripts are set up for players who want a more immersive way to manage pol
 
 ## requirements
 to use these scripts, you'll need:
-Minecraft Forge 1.20.1,
-TerraFirmaCraft,
-FirmaLife,
-Pollution of the Realms,
-Advanced Chimneys,
-and KubeJS
+Minecraft Forge 1.20.1, TerraFirmaCraft, FirmaLife, Pollution of the Realms, Advanced Chimneys, and KubeJS
 
 ## features
 these filters help reduce pollution from crafting and smelting, giving you multiple options depending on your tech level and available resources.
 
 right click a filter block with an empty hand to check how much pollution it has stored (if any).
-brush filters with a brush to remove soot or residue.
+brush filters to remove soot or residue.
 some filters can be cleaned using vinegar in a tfc-compatible fluid container.
 all filters except for reed can be broken and replaced to clean it, but you lose the resources.
 

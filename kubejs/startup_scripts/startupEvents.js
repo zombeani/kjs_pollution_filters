@@ -112,7 +112,7 @@ StartupEvents.registry("minecraft:block", event => {
                 };
             });
         })
-        .textureAll("create:block/brass_block")
+        .textureAll("minecraft:block/iron_block")
         .displayName("Chromium Filter");
 });
 

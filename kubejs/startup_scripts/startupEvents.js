@@ -80,7 +80,7 @@ StartupEvents.registry("minecraft:block", event => {
                 };
             });
         })
-        .textureAll("create:block/palettes/stone_types/limestone")
+        .textureAll("tfc:block/rock/chiseled/limestone")
         .displayName("Limewater Filter");
 
     event.create("kubejs:chromium_filter")

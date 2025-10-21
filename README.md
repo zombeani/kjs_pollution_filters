@@ -1,9 +1,10 @@
 ## pollution filters
-kubejs scripts that adds pollution of the realms compatible filters for early game terrafirmacraft. forge 1.20.1
+kubejs scripts that adds pollution of the realms compatible filters for early game terrafirmacraft.
 
 example video: https://www.youtube.com/watch?v=D7lAIOUmb2w
 
-these scripts are set up for players who want a more immersive way to manage pollution in terrafirmacraft
+these scripts are set up for players who want a more immersive way to manage pollution.  
+currently they're using placeholder textures and don't have crafting recipes.
 
 ## requirements
 to use these scripts, you'll need:  

@@ -12,6 +12,7 @@ Minecraft Forge 1.20.1, TerraFirmaCraft, FirmaLife, Pollution of the Realms, Adv
 ## features
 these filters help reduce pollution from crafting and smelting, giving you multiple options depending on your tech level and available resources.
 
+tfc bellows can now push pollution and items
 right click a filter block with an empty hand to check how much pollution it has stored (if any).
 brush filters to remove soot or residue.
 some filters can be cleaned using vinegar in a tfc-compatible fluid container.
@@ -38,3 +39,16 @@ holds up to 8 charges per block.
 absorbs carbon, dust, and sulfur.
 brush for soot, or use vinegar for sulfur powder.
 holds up to 16 total charges across all pollution types added up.
+
+*wicker screen*
+absorbs dust only.
+only takes from the top, and rarely drops flux on the bottom.
+flammable
+
+*cork block*
+breaks itself when pollution is detected by a neighboring block.
+flammable
+
+*gas valve*
+briefly disappears when pollution is detected by a neighboring block.
+turns itself into an item if held open for 30 seconds in a single activation.

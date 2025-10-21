@@ -1,4 +1,4 @@
-const sootArray = new Set(["adpother:carbon", "adpother:dust"]);
+const sootSet = new Set(["adpother:carbon", "adpother:dust"]);
 const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const ran = () => global.intRan(-5, 5);
 
@@ -45,7 +45,7 @@ StartupEvents.registry("minecraft:block", event => {
 
                 for (let direction of Object.keys(Direction.ALL)) {
                     let targetBlock = block.offset(direction);
-                    if (!sootArray.has(String(targetBlock.id))) { continue; };
+                    if (!sootSet.has(String(targetBlock.id))) { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 8) } });
                     targetBlock.set("minecraft:air"); return;
                 };

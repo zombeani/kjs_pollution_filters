@@ -213,6 +213,7 @@ StartupEvents.registry("minecraft:block", event => {
                         if (tries <= 0) { block.popItem("kubejs:gas_valve"); sch.clear(); return; };
                         let currentBlock = block.level.getBlock(block.x, block.y, block.z);
                         let newBlock = block.level.getBlock(targetPos.x, targetPos.y, targetPos.z);
+                        if (currentBlock.id == "minecraft:air" && newBlock.id == "kubejs:gas_valve") { block.set("kubejs:gas_valve"); sch.clear(); return; };
                         if (currentBlock.id != "minecraft:air" || newBlock.id != "minecraft:air") { return; };
                         block.set("kubejs:gas_valve"); sch.clear(); return;
                     });

@@ -1,9 +1,10 @@
 const sootSet = new Set(["adpother:carbon", "adpother:dust"]);
 const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const ran = () => global.intRan(-5, 5);
+const schClear = (sch) => { sch.scheduledEvents.events.forEach(evn => { sch.scheduledEvents.clear(evn.id); })};
 const actionMap = {
-    "minecraft:air,kubejs:gas_valve": (block, sch) => { block.set("kubejs:gas_valve"); sch.clear(); return; },
-    "minecraft:air,minecraft:air": (block, sch) => { block.set("kubejs:gas_valve"); sch.clear(); return; }
+    "minecraft:air,kubejs:gas_valve": (block, sch) => { block.set("kubejs:gas_valve"); schClear(sch); return; },
+    "minecraft:air,minecraft:air": (block, sch) => { block.set("kubejs:gas_valve"); schClear(sch); return; }
 };
 
 StartupEvents.registry("minecraft:block", event => {
@@ -192,38 +193,6 @@ StartupEvents.registry("minecraft:block", event => {
         })
         .textureAll("tfc:block/wattle/unstained_wattle")
         .displayName("Cork Block");
-
-    event.create("kubejs:gas_valve")
-        .hardness(3.0)
-        .resistance(1.5)
-        .opaque(true)
-        .tagBlock('minecraft:mineable/pickaxe')
-        .soundType(SoundType.METAL)
-        .blockEntity(block => {
-            block.serverTick(60, 0, ctx => {
-                const { block } = ctx;
-
-                for (let direction of Object.keys(Direction.ALL)) {
-                    let targetBlock = block.offset(direction);
-                    if (!pollutionSet.has(String(targetBlock.id))) { continue; };
-                    block.level.playSound(null, block.x, block.y, block.z, "minecraft:block.lava.pop", "players", 1, global.ran(0.33, 0.66));
-                    block.set("minecraft:air"); let targetPos = targetBlock.pos; let tries = 10;
-                    block.level.server.scheduleRepeatingInTicks(60, sch => {
-                        tries -= 1;
-                        let currentBlock = block.level.getBlock(block.x, block.y, block.z);
-                        let newBlock = block.level.getBlock(targetPos.x, targetPos.y, targetPos.z);
-
-                        if (currentBlock.id != "kubejs:gas_valve" && tries <= 0) { block.level.playSound(null, block.x, block.y, block.z, "minecraft:block.chain.break", "players", 1, 0.66); sch.clear(); return; };
-                        if (pollutionSet.has(String(currentBlock.id) || pollutionSet.has(String(newBlock.id)))) { return; };
-
-                        let actionKey =`${currentBlock.id},${newBlock.id}`;
-                        let action = actionMap[actionKey]; if (!action) { return; }; action(block, sch);
-                    });
-                };
-            });
-        })
-        .textureAll("tfc:block/metal/block/nickel")
-        .displayName("Gas Valve");
 });
 
 const midFlameArray = ["kubejs:reed_filter", "kubejs:wicker_screen", "kubejs:cork_block"];

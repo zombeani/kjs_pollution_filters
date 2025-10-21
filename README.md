@@ -53,7 +53,3 @@ consumes itself on use.
 *cork block*  
 breaks itself when pollution is detected by a neighboring block.  
 flammable.
-
-*gas valve*  
-briefly disappears when pollution is detected by a neighboring block.  
-breaks itself when held open for 30 seconds in a single activation.

@@ -200,8 +200,9 @@ StartupEvents.registry("minecraft:block", event => {
                 const { block } = ctx;
 
                 let scheduled = false;
+                if (scheduled) { return; };
+
                 for (let direction of Object.keys(Direction.ALL)) {
-                    if (scheduled) { return; };
                     let targetBlock = block.offset(direction);
                     if (!pollutionSet.has(String(targetBlock.id))) { continue; };
                     block.level.playSound(null, block.x, block.y, block.z, "minecraft:block.lava.pop", "players", 1, global.ran(0.33, 0.66));
@@ -209,9 +210,9 @@ StartupEvents.registry("minecraft:block", event => {
 
                     block.level.server.scheduleRepeatingInTicks(60, sch => {
                         tries -= 1;
+                        if (tries <= 0) { block.popItem("kubejs:gas_valve"); sch.clear(); return; };
                         let currentBlock = block.level.getBlock(block.x, block.y, block.z);
                         let newBlock = block.level.getBlock(targetPos.x, targetPos.y, targetPos.z);
-                        if (tries <= 0) { block.popItem("kubejs:gas_valve"); sch.clear(); return; };
                         if (currentBlock.id != "minecraft:air" || newBlock.id != "minecraft:air") { return; };
                         block.set("kubejs:gas_valve"); sch.clear(); return;
                     });

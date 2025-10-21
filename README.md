@@ -1,7 +1,7 @@
 ## pollution filters
 kubejs scripts that adds pollution of the realms compatible filters for early game terrafirmacraft. forge 1.20.1
 
-inspired by this video: https://www.youtube.com/watch?v=D7lAIOUmb2w
+example video: https://www.youtube.com/watch?v=D7lAIOUmb2w
 
 these scripts are set up for players who want a more immersive way to manage pollution in terrafirmacraft
 

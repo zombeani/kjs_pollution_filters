@@ -45,6 +45,10 @@ absorbs dust only.
 only takes from the top, and rarely drops flux on the bottom.  
 flammable.
 
+*salt crystal*
+slowly checks for nearby pollution in an 11x11x11 space, and when pollution is detected it removes a 3x3 chunk of it.
+consumes itself on use.
+
 *cork block*  
 breaks itself when pollution is detected by a neighboring block.  
 flammable.

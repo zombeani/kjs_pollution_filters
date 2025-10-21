@@ -43,11 +43,11 @@ holds up to 16 total charges across all pollution types added up.
 *wicker screen*  
 absorbs dust only.  
 only takes from the top, and rarely drops flux on the bottom.  
-flammable
+flammable.
 
 *cork block*  
 breaks itself when pollution is detected by a neighboring block.  
-flammable
+flammable.
 
 *gas valve*  
 briefly disappears when pollution is detected by a neighboring block.  

@@ -55,4 +55,4 @@ flammable.
 
 *gas valve*  
 briefly disappears when pollution is detected by a neighboring block.  
-turns itself into an item if held open for 30 seconds in a single activation.
+breaks itself when held open for 30 seconds in a single activation.

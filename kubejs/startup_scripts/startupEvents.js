@@ -1,11 +1,6 @@
 const sootSet = new Set(["adpother:carbon", "adpother:dust"]);
 const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const ran = () => global.intRan(-5, 5);
-const schClear = (sch) => { sch.scheduledEvents.events.forEach(evn => { sch.scheduledEvents.clear(evn.id); })};
-const actionMap = {
-    "minecraft:air,kubejs:gas_valve": (block, sch) => { block.set("kubejs:gas_valve"); schClear(sch); return; },
-    "minecraft:air,minecraft:air": (block, sch) => { block.set("kubejs:gas_valve"); schClear(sch); return; }
-};
 
 StartupEvents.registry("minecraft:block", event => {
     event.create("kubejs:reed_filter")

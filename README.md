@@ -51,5 +51,5 @@ slowly checks for nearby pollution in an 11x11x11 space, and when pollution is d
 consumes itself on use.
 
 *cork block*  
-breaks itself when pollution is detected by a neighboring block.  
+pops into an item in the opposite direction that pollution was detected at. 
 flammable.

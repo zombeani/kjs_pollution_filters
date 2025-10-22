@@ -186,8 +186,14 @@ StartupEvents.registry("minecraft:block", event => {
                 for (let direction of Object.keys(Direction.ALL)) {
                     let targetBlock = block.offset(direction);
                     if (!pollutionSet.has(String(targetBlock.id))) { continue; };
+
+                    let vec = new Vec3d((block.x - targetBlock.x) * 0.33, Math.sign(block.y - targetBlock.y) || 0.5, (block.z - targetBlock.z) * 0.33);
+                    let stack = block.createEntity("minecraft:item"); stack.item = Item.of("kubejs:cork_block", 1); stack.pos = block.pos;
+                    block.set("minecraft:air"); stack.spawn(); stack.hurtMarked = true; stack.addDeltaMovement(vec);
+
+                    block.level.spawnParticles("minecraft:cloud", false, block.x, block.y + 0.5, block.z, 0.2, 0.2, 0.2, 3, 0.05);
                     block.level.playSound(null, block.x, block.y, block.z, "minecraft:block.lava.pop", "players", 1, global.ran(0.33, 0.66));
-                    block.set("minecraft:air"); return;
+                    return;
                 };
             });
         })

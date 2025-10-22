@@ -54,8 +54,8 @@ consumes itself on use.
 pops into an item in the opposite direction that pollution was detected at.  
 flammable.
 
-*gas pump*
-pushes pollution to another end of a pipe.  
+*gas pump*  
+pushes pollution to another end of a pipe.   
 when connected to gas pipes it tries to find the closest gas pump that's facing the opposite direction. holding shift and placing it into the pipes makes it input, placing it facing away from the pipe make it output.  
 output side requires open air.  
 16 block range max.
@@ -64,5 +64,5 @@ output side requires open air.
 pushes pollution in the opposite direction that it was detected at.  
 prevents pollution backflow by storing and blacklisting the last active output side.
 
-*gas pipe*
+*gas pipe*  
 connects gas pumps to each other.

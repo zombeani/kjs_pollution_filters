@@ -199,6 +199,32 @@ StartupEvents.registry("minecraft:block", event => {
         })
         .textureAll("tfc:block/wattle/unstained_wattle")
         .displayName("Cork Block");
+
+    event.create("kubejs:gas_valve")
+        .hardness(3.0)
+        .resistance(1.5)
+        .opaque(true)
+        .tagBlock('minecraft:mineable/pickaxe')
+        .soundType(SoundType.METAL)
+        .blockEntity(block => {
+            block.initialData({direction: ""});
+            block.serverTick(60, 0, ctx => {
+                const { block } = ctx;
+
+                for (let direction of Object.keys(Direction.ALL)) {
+                    let targetBlock = block.offset(direction);
+                    if (!pollutionSet.has(String(targetBlock.id))) { continue; };
+                    if (block.entityData.data.direction == direction) { return; };
+                    block.mergeEntityData({ data: { direction: String(Direction.ALL[direction].opposite) } });
+                    let vec = { x: block.x - targetBlock.x, y: block.y - targetBlock.y, z: block.z - targetBlock.z };
+                    let opposite = block.offset(vec.x, vec.y, vec.z);
+                    if (opposite.id != "minecraft:air") { return; };
+                    opposite.set(targetBlock.id, { density: targetBlock.properties.density }); targetBlock.set("minecraft:air"); return;
+                };
+            });
+        })
+        .textureAll("tfc:block/metal/block/nickel")
+        .displayName("Gas Valve");
 });
 
 const midFlameArray = ["kubejs:reed_filter", "kubejs:wicker_screen", "kubejs:cork_block"];

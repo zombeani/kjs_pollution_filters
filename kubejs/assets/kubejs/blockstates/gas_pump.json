@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "kubejs:block/gas_pump",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "kubejs:block/gas_pump",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "kubejs:block/gas_pump",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "kubejs:block/gas_pump",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "kubejs:block/gas_pump"
+    },
+    "facing=west": {
+      "model": "kubejs:block/gas_pump",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

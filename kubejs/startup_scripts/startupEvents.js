@@ -1,17 +1,19 @@
+const $Integer = Java.loadClass("java.lang.Integer");
 const sootSet = new Set(["adpother:carbon", "adpother:dust"]);
 const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const ran = () => global.intRan(-5, 5);
 
 StartupEvents.registry("minecraft:block", event => {
     event.create("kubejs:reed_filter")
+        .property(BlockProperties.LEVEL)
+        .placementState(state => { state.setValue(BlockProperties.LEVEL, new $Integer(NBT.i(0))); return state; })
         .hardness(1.0)
         .resistance(0.5)
         .opaque(true)
-        .material("wood")
         .tagBlock("minecraft:mineable/hoe")
         .soundType(SoundType.BIG_DRIPLEAF)
         .blockEntity(block => {
-            block.initialData({used: 0})
+            block.initialData({used: 0});
             block.serverTick(100, 0, ctx => {
                 const { block } = ctx;
 
@@ -22,6 +24,8 @@ StartupEvents.registry("minecraft:block", event => {
                     let targetBlock = block.offset(direction);
                     if (targetBlock.id != "adpother:carbon") { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 4) } });
+                    let usedData = Math.floor((block.entityData.data.used / 4) * 3);
+                    block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
@@ -30,13 +34,15 @@ StartupEvents.registry("minecraft:block", event => {
         .displayName("Reed Filter");
 
     event.create("kubejs:charcoal_filter")
+        .property(BlockProperties.LEVEL)
+        .placementState(state => { state.setValue(BlockProperties.LEVEL, new $Integer(NBT.i(0))); return state; })
         .hardness(2.0)
         .resistance(3.0)
         .opaque(true)
         .tagBlock("minecraft:mineable/pickaxe")
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
-            block.initialData({used: 0})
+            block.initialData({used: 0});
             block.serverTick(200, 0, ctx => {
                 const { block } = ctx;
 
@@ -47,6 +53,8 @@ StartupEvents.registry("minecraft:block", event => {
                     let targetBlock = block.offset(direction);
                     if (!sootSet.has(String(targetBlock.id))) { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 8) } });
+                    let usedData = Math.floor((block.entityData.data.used / 8) * 3);
+                    block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
@@ -55,13 +63,15 @@ StartupEvents.registry("minecraft:block", event => {
         .displayName("Charcoal Filter");
 
     event.create("kubejs:limewater_filter")
+        .property(BlockProperties.LEVEL)
+        .placementState(state => { state.setValue(BlockProperties.LEVEL, new $Integer(NBT.i(0))); return state; })
         .hardness(2.0)
         .resistance(3.0)
         .opaque(true)
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
-            block.initialData({used: 0})
+            block.initialData({used: 0});
             block.serverTick(200, 0, ctx => {
                 const { block } = ctx;
 
@@ -72,6 +82,8 @@ StartupEvents.registry("minecraft:block", event => {
                     let targetBlock = block.offset(direction);
                     if (targetBlock.id != "adpother:sulfur") { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 8) } });
+                    let usedData = Math.floor((block.entityData.data.used / 4) * 8);
+                    block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
@@ -80,13 +92,15 @@ StartupEvents.registry("minecraft:block", event => {
         .displayName("Limewater Filter");
 
     event.create("kubejs:chromium_filter")
+        .property(BlockProperties.LEVEL)
+        .placementState(state => { state.setValue(BlockProperties.LEVEL, new $Integer(NBT.i(0))); return state; })
         .hardness(3.0)
         .resistance(3.5)
         .opaque(true)
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.DRIPSTONE_BLOCK)
         .blockEntity(block => {
-            block.initialData({used: 0, carbon: 0, sulfur: 0})
+            block.initialData({used: 0, carbon: 0, sulfur: 0});
             block.serverTick(100, 0, ctx => {
                 const { block } = ctx;
 
@@ -109,6 +123,8 @@ StartupEvents.registry("minecraft:block", event => {
                     let combined = Math.min(carbonData + sulfurData, 16);
 
                     block.mergeEntityData({ data: { carbon: carbonData, sulfur: sulfurData, used: combined } });
+                    let usedData = Math.floor((combined / 16) * 3);
+                    block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
@@ -194,32 +210,6 @@ StartupEvents.registry("minecraft:block", event => {
         })
         .textureAll("tfc:block/wattle/unstained_wattle")
         .displayName("Cork Block");
-
-    event.create("kubejs:gas_valve")
-        .hardness(3.0)
-        .resistance(1.5)
-        .opaque(true)
-        .tagBlock('minecraft:mineable/pickaxe')
-        .soundType(SoundType.METAL)
-        .blockEntity(block => {
-            block.initialData({direction: ""});
-            block.serverTick(60, 0, ctx => {
-                const { block } = ctx;
-
-                for (let direction of Object.keys(Direction.ALL)) {
-                    let targetBlock = block.offset(direction);
-                    if (!pollutionSet.has(String(targetBlock.id))) { continue; };
-                    if (block.entityData.data.direction == direction) { return; };
-                    block.mergeEntityData({ data: { direction: String(Direction.ALL[direction].opposite) } });
-                    let vec = { x: block.x - targetBlock.x, y: block.y - targetBlock.y, z: block.z - targetBlock.z };
-                    let opposite = block.offset(vec.x, vec.y, vec.z);
-                    if (opposite.id != "minecraft:air") { return; };
-                    opposite.set(targetBlock.id, { density: targetBlock.properties.density }); targetBlock.set("minecraft:air"); return;
-                };
-            });
-        })
-        .textureAll("tfc:block/metal/block/nickel")
-        .displayName("Gas Valve");
 });
 
 const midFlameArray = ["kubejs:reed_filter", "kubejs:wicker_screen", "kubejs:cork_block"];

@@ -54,6 +54,6 @@ consumes itself on use.
 pops into an item in the opposite direction that pollution was detected at.  
 flammable.
 
-*gas valve*
-pushes pollution in the opposite direction it was detected in.
+*gas valve*  
+pushes pollution in the opposite direction it was detected in.  
 prevents pollution backflow by storing and blacklisting the last active output side.

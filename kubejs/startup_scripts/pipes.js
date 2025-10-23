@@ -1,5 +1,5 @@
 /** @param {Internal.BlockContainerJS} block **/
-global.checkPipes = (block, maxDepth) => {
+const checkPipes = (block, maxDepth) => {
     let visited = new Set();
     let queue = [{ block: block, depth: 0 }];
 
@@ -50,9 +50,9 @@ StartupEvents.registry("minecraft:block", event => {
                 const { block } = ctx;
 
                 for (let direction of Object.keys(Direction.ALL)) {
+                    if (block.entityData.data.direction == direction) { return; };
                     let targetBlock = block.offset(direction);
                     if (!pollutionSet.has(String(targetBlock.id))) { continue; };
-                    if (block.entityData.data.direction == direction) { return; };
                     block.mergeEntityData({ data: { direction: String(Direction.ALL[direction].opposite) } });
                     let vec = { x: block.x - targetBlock.x, y: block.y - targetBlock.y, z: block.z - targetBlock.z };
                     let opposite = block.offset(vec.x, vec.y, vec.z);
@@ -84,7 +84,7 @@ StartupEvents.registry("minecraft:block", event => {
                 if (frontBlock.id == "kubejs:gas_pipe") {
                     let data = block.entityData.data;
                     let outputBlock = block.level.getBlock(data.x, data.y, data.z);
-                    if (outputBlock.id != "kubejs:gas_pump") { global.checkPipes(block, 18); return; };
+                    if (outputBlock.id != "kubejs:gas_pump") { checkPipes(block, 18); return; };
 
                     for (let direction of Object.keys(Direction.ALL)) {
                         if (direction == Direction[block.properties.facing]) { continue; };
@@ -105,9 +105,9 @@ StartupEvents.registry("minecraft:block", event => {
 
                     if (block.entityData?.cycle) {
                         if (block.entityData.cycle % 2) { return; };
-                        global.checkPipes(block, 18);
+                        checkPipes(block, 18);
                     } else {
-                        global.checkPipes(block, 18);
+                        checkPipes(block, 18);
                     };
                 }; //input side
 

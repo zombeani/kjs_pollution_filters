@@ -84,7 +84,7 @@ StartupEvents.registry("minecraft:block", event => {
                 if (frontBlock.id == "kubejs:gas_pipe") {
                     let data = block.entityData.data;
                     let outputBlock = block.level.getBlock(data.x, data.y, data.z);
-                    if (outputBlock.id != "kubejs:gas_pump") { global.checkPipes(block, 16); return; };
+                    if (outputBlock.id != "kubejs:gas_pump") { global.checkPipes(block, 18); return; };
 
                     for (let direction of Object.keys(Direction.ALL)) {
                         if (direction == Direction[block.properties.facing]) { continue; };
@@ -105,9 +105,9 @@ StartupEvents.registry("minecraft:block", event => {
 
                     if (block.entityData?.cycle) {
                         if (block.entityData.cycle % 2) { return; };
-                        global.checkPipes(block, 16);
+                        global.checkPipes(block, 18);
                     } else {
-                        global.checkPipes(block, 16);
+                        global.checkPipes(block, 18);
                     };
                 }; //input side
 
@@ -125,7 +125,7 @@ global.testTick = (block) => {
     if (frontBlock.id == "kubejs:gas_pipe") {
         let data = block.entityData.data;
         let outputBlock = block.level.getBlock(data.x, data.y, data.z);
-        if (outputBlock.id != "kubejs:gas_pump") { global.checkPipes(block, 16); return; };
+        if (outputBlock.id != "kubejs:gas_pump") { global.checkPipes(block, 18); return; };
 
         for (let direction of Object.keys(Direction.ALL)) {
             if (direction == Direction[block.properties.facing]) { continue; };
@@ -146,9 +146,9 @@ global.testTick = (block) => {
 
         if (block.entityData?.cycle) {
             if (block.entityData.cycle % 2) { return; };
-            global.checkPipes(block, 16);
+            global.checkPipes(block, 18);
         } else {
-            global.checkPipes(block, 16);
+            global.checkPipes(block, 18);
         };
     }; //input side
 

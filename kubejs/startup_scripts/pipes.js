@@ -46,9 +46,11 @@ StartupEvents.registry("minecraft:block", event => {
         .textureAll("kubejs:block/gas_router")
         .blockEntity(block => {
             block.initialData({direction: ""});
-            block.serverTick(60, 0, ctx => {
+            let randomTick = global.intRan(50, 70);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
+                randomTick = global.intRan(50, 70);
                 for (let direction of Object.keys(Direction.ALL)) {
                     if (block.entityData.data.direction == direction) { return; };
                     let targetBlock = block.offset(direction);
@@ -75,9 +77,11 @@ StartupEvents.registry("minecraft:block", event => {
         .placementState(state => { state.setValue(BlockProperties.FACING, !state.player.shiftKeyDown ? state.nearestLookingDirection.opposite : state.nearestLookingDirection); return state; })
         .blockEntity(block => {
             block.initialData({ x: 0, y: 0, z: 0 });
-            block.serverTick(60, 0, ctx => {
+            let randomTick = global.intRan(50, 70);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
+                randomTick = global.intRan(50, 70);
                 let frontBlock = block.offset(Direction[block.properties.facing]);
                 let backBlock = block.offset(Direction[block.properties.facing].opposite);
 

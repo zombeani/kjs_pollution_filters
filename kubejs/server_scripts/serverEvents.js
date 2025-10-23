@@ -7,7 +7,7 @@ const facingMap = {
     "down": [0, -1, 0]
 };
 
-const pollutionArray = ["adpother:carbon", "adpother:sulfur", "adpother:dust"];
+const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const acidArray = ["tfc:vinegar", "tfc:milk_vinegar"];
 
 const reportPollution = (player, block) => {
@@ -83,38 +83,36 @@ BlockEvents.rightClicked("tfc:bellows", event => {
     let direction = facingMap[block.properties.facing];
     if (!direction) { return; };
 
-    let radius = {
-        minX: Math.floor(block.x - 1),
-        maxX: Math.ceil(block.x + 1),
-        minY: Math.floor(block.y - 1),
-        maxY: Math.ceil(block.y + 1),
-        minZ: Math.floor(block.z - 1),
-        maxZ: Math.ceil(block.z + 1)
-    };
+    let baseSize = { x: 3, y: 3, z: 3 };
 
     if (direction[0] != 0) {
-        if (direction[0] > 0) { radius.maxX += 8; }
-        else { radius.minX -= 8; };
+        baseSize.x += 8 * Math.sign(direction[0]);
     } else if (direction[1] != 0) {
-        if (direction[1] > 0) { radius.maxY += 8; }
-        else { radius.minY -= 8; };
+        baseSize.y += 8 * Math.sign(direction[1]);
     } else if (direction[2] != 0) {
-        if (direction[2] > 0) { radius.maxZ += 8; }
-        else { radius.minZ -= 8; };
+        baseSize.z += 8 * Math.sign(direction[2]);
     };
 
-    for (let x = radius.minX; x <= radius.maxX; x++) {
-        for (let y = radius.minY; y <= radius.maxY; y++) {
-            for (let z = radius.minZ; z <= radius.maxZ; z++) {
+    let aabb = AABB.ofSize(block.pos, baseSize.x, baseSize.y, baseSize.z).move(direction[0] * 2, direction[1] * 2, direction[2] * 2);
+    let floorItem = block.level.getEntitiesWithin(aabb).stream().filter(e => !e.living).filter(e => e.type == "minecraft:item").toList();
+    
+    for (let entity of floorItem) {
+        let velocity = { x: direction[0] * 0.5, y: direction[1] * 0.5, z: direction[2] * 0.5 };
+        entity.addDeltaMovement(new Vec3d(velocity.x, velocity.y, velocity.z));
+    };
+    
+    for (let x = aabb.minX; x <= aabb.maxX; x++) {
+        for (let y = aabb.minY; y <= aabb.maxY; y++) {
+            for (let z = aabb.minZ; z <= aabb.maxZ; z++) {
                 let targetBlock = block.level.getBlock(x, y, z);
-                if (!pollutionArray.includes(targetBlock.id)) { continue; };
+                if (!pollutionSet.has(String(targetBlock.id))) { continue; };
 
                 let newPos = targetBlock.getPos().offset(direction[0], direction[1], direction[2]);
                 let newBlock = block.level.getBlock(newPos.x, newPos.y, newPos.z);
                 if (newBlock.id != "minecraft:air") { continue; };
 
-                newBlock.set(targetBlock.id);
-                targetBlock.set("minecraft:air");
+                newBlock.set(targetBlock.id, { density: targetBlock.properties.density });
+                targetBlock.set("minecraft:air"); return;
             };
         };
     };

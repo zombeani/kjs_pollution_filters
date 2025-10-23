@@ -52,9 +52,9 @@ StartupEvents.registry("minecraft:block", event => {
 
                 randomTick = global.intRan(50, 70);
                 for (let direction of Object.keys(Direction.ALL)) {
-                    if (block.entityData.data.direction == direction) { return; };
                     let targetBlock = block.offset(direction);
                     if (!pollutionSet.has(String(targetBlock.id))) { continue; };
+                    if (block.entityData.data.direction == direction) { return; };
                     block.mergeEntityData({ data: { direction: String(Direction.ALL[direction].opposite) } });
                     let vec = { x: block.x - targetBlock.x, y: block.y - targetBlock.y, z: block.z - targetBlock.z };
                     let opposite = block.offset(vec.x, vec.y, vec.z);

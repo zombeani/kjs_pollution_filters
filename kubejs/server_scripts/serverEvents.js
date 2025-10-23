@@ -121,7 +121,7 @@ BlockEvents.rightClicked("tfc:bellows", event => {
                 if (newBlock.id != "minecraft:air") { continue; };
 
                 newBlock.set(targetBlock.id, { density: targetBlock.properties.density });
-                targetBlock.set("minecraft:air"); return;
+                targetBlock.set("minecraft:air");
             };
         };
     };

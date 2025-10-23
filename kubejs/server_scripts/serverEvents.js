@@ -49,7 +49,7 @@ const brushCleaning = (player, block, item, facing) => {
         let usedKey = usedMap[block.id]; if (!usedKey) { ctx.clear(); return; };
         let usedData = Math.floor((block.entityData.data.used / usedKey) * 2);
         block.set(block.id, { level: String(usedData) });
-        if (!["kubejs:charcoal_filter", "kubejs:chromium_filter"].includes(block.id)) { ctx.clear(); return; };
+        if (!["kubejs:charcoal_filter", "kubejs:chromium_filter"].includes(block.id)) { return; };
         block.popItemFromFace("tfc:soot", facing);
     });
 };

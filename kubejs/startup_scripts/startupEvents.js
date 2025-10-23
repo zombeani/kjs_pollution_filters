@@ -1,6 +1,7 @@
 const $Integer = Java.loadClass("java.lang.Integer");
 const sootSet = new Set(["adpother:carbon", "adpother:dust"]);
 const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
+const saltSet = new Set(["minecraft:snow", "adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const ran = () => global.intRan(-5, 5);
 
 StartupEvents.registry("minecraft:block", event => {
@@ -160,12 +161,12 @@ StartupEvents.registry("minecraft:block", event => {
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
-            block.serverTick(200, 0, ctx => {
+            block.serverTick(100, 0, ctx => {
                 const { block } = ctx;
 
                 if (Math.random() < 0.5) { return; };
                 let spot = block.offset(ran(), ran(), ran());
-                if (!pollutionSet.has(String(spot.id))) { return; };
+                if (!saltSet.has(String(spot.id))) { return; };
                 let aabb = AABB.ofSize(spot.pos, 3, 3, 3);
                 let cleared = false;
                 
@@ -173,7 +174,7 @@ StartupEvents.registry("minecraft:block", event => {
                     for (let y = Math.floor(aabb.minY); y <= Math.ceil(aabb.maxY); y++) {
                         for (let z = Math.floor(aabb.minZ); z <= Math.ceil(aabb.maxZ); z++) {
                             let targetBlock = block.level.getBlock(x, y, z);
-                            if (!pollutionSet.has(String(targetBlock.id))) { continue; };
+                            if (!saltSet.has(String(targetBlock.id))) { continue; };
                             targetBlock.set("minecraft:air"); cleared = true;
                         };
                     };

@@ -35,7 +35,7 @@ StartupEvents.registry("minecraft:block", event => {
         .opaque(true)
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.METAL)
-        .textureAll("minecraft:block/oak_log");
+        .textureAll("kubejs:block/gas_pipe");
 
     event.create("kubejs:gas_router")
         .hardness(3.0)
@@ -43,7 +43,7 @@ StartupEvents.registry("minecraft:block", event => {
         .opaque(true)
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.METAL)
-        .textureAll("tfc:block/metal/block/nickel")
+        .textureAll("kubejs:block/gas_router")
         .blockEntity(block => {
             block.initialData({direction: ""});
             block.serverTick(60, 0, ctx => {
@@ -68,9 +68,9 @@ StartupEvents.registry("minecraft:block", event => {
         .opaque(true)
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.METAL)
-        .textureAll("minecraft:block/barrel_side")
-        .textureSide("up", "minecraft:block/barrel_top")
-        .textureSide("down", "minecraft:block/barrel_bottom")
+        .textureAll("kubejs:block/gas_pump_side")
+        .textureSide("up", "kubejs:block/gas_pump_top")
+        .textureSide("down", "kubejs:block/gas_pump_bottom")
         .property(BlockProperties.FACING)
         .placementState(state => { state.setValue(BlockProperties.FACING, !state.player.shiftKeyDown ? state.nearestLookingDirection.opposite : state.nearestLookingDirection); return state; })
         .blockEntity(block => {

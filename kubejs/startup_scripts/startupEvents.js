@@ -15,10 +15,11 @@ StartupEvents.registry("minecraft:block", event => {
         .soundType(SoundType.BIG_DRIPLEAF)
         .blockEntity(block => {
             block.initialData({used: 0});
-            block.serverTick(100, 0, ctx => {
+            let randomTick = global.intRan(90, 110);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
-                if (Math.random() < 0.5) { return; };
+                randomTick = global.intRan(90, 110);
                 if (block.entityData.data.used >= 4) { return; };
 
                 for (let direction of Object.keys(Direction.ALL)) {
@@ -44,10 +45,11 @@ StartupEvents.registry("minecraft:block", event => {
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
             block.initialData({used: 0});
-            block.serverTick(200, 0, ctx => {
+            let randomTick = global.intRan(190, 210);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
-                if (Math.random() < 0.5) { return; };
+                randomTick = global.intRan(190, 210);
                 if (block.entityData.data.used >= 8) { return; };
 
                 for (let direction of Object.keys(Direction.ALL)) {
@@ -73,10 +75,11 @@ StartupEvents.registry("minecraft:block", event => {
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
             block.initialData({used: 0});
-            block.serverTick(200, 0, ctx => {
+            let randomTick = global.intRan(190, 210);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
-                if (Math.random() < 0.5) { return; };
+                randomTick = global.intRan(190, 210);
                 if (block.entityData.data.used >= 8) { return; };
 
                 for (let direction of Object.keys(Direction.ALL)) {
@@ -102,10 +105,11 @@ StartupEvents.registry("minecraft:block", event => {
         .soundType(SoundType.DRIPSTONE_BLOCK)
         .blockEntity(block => {
             block.initialData({used: 0, carbon: 0, sulfur: 0});
-            block.serverTick(100, 0, ctx => {
+            let randomTick = global.intRan(90, 110);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
-                if (Math.random() < 0.5) { return; };
+                randomTick = global.intRan(90, 110);
                 if (block.entityData.data.used >= 16) { return; };
 
                 for (let direction of Object.keys(Direction.ALL)) {
@@ -141,9 +145,11 @@ StartupEvents.registry("minecraft:block", event => {
         .tagBlock('minecraft:mineable/axe')
         .soundType(SoundType.BAMBOO_WOOD)
         .blockEntity(block => {
-            block.serverTick(200, 0, ctx => {
+            let randomTick = global.intRan(190, 210);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
+                randomTick = global.intRan(190, 210);
                 let upBlock = block.offset(0, 1, 0);
                 if (upBlock.id != "adpother:dust") { return; };
                 upBlock.set("minecraft:air");

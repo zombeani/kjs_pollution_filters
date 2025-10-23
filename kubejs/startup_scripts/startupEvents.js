@@ -122,7 +122,6 @@ StartupEvents.registry("minecraft:block", event => {
                     };
 
                     let combined = Math.min(carbonData + sulfurData, 16);
-                    Utils.server.tell(combined)
 
                     block.mergeEntityData({ data: { carbon: carbonData, sulfur: sulfurData, used: combined } });
                     let usedData = Math.floor((combined / 16) * 2);

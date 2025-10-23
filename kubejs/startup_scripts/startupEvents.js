@@ -136,7 +136,8 @@ StartupEvents.registry("minecraft:block", event => {
     event.create("kubejs:wicker_screen")
         .hardness(1.0)
         .resistance(0.5)
-        .opaque(true)
+        .opaque(false)
+        .defaultCutout()
         .tagBlock('minecraft:mineable/axe')
         .soundType(SoundType.BAMBOO_WOOD)
         .blockEntity(block => {
@@ -150,7 +151,9 @@ StartupEvents.registry("minecraft:block", event => {
                 block.popItemFromFace("tfc:powder/flux", "down");
             });
         })
-        .textureAll("minecraft:block/oak_planks")
+        .textureAll("tfc:block/wattle/woven_wattle")
+        .textureSide("up", "kubejs:block/wicker_screen")
+        .textureSide("down", "kubejs:block/wicker_screen")
         .displayName("Wicker Screen");
 
     event.create("kubejs:salt_crystal")
@@ -209,7 +212,7 @@ StartupEvents.registry("minecraft:block", event => {
                 };
             });
         })
-        .textureAll("tfc:block/wattle/unstained_wattle")
+        .textureAll("kubejs:block/cork_block")
         .displayName("Cork Block");
 });
 

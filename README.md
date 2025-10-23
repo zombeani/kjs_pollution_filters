@@ -48,7 +48,7 @@ flammable.
 
 *salt crystal*  
 slowly checks for nearby pollution and snow layers in an 11x11x11 space.  
-removes pollution in a 3x3 space. removes snow in a 5x5 space.
+removes pollution in a 3x3 space. removes snow in a 5x5 space.  
 consumes itself on use.
 
 *cork block*  

@@ -157,19 +157,21 @@ StartupEvents.registry("minecraft:block", event => {
         .displayName("Wicker Screen");
 
     event.create("kubejs:salt_crystal")
-        .hardness(2.0)
-        .resistance(1.5)
+        .hardness(1.5)
+        .resistance(1.0)
         .opaque(true)
         .tagBlock('minecraft:mineable/pickaxe')
         .soundType(SoundType.CALCITE)
         .blockEntity(block => {
-            block.serverTick(100, 0, ctx => {
+            let randomTick = global.intRan(60, 100);
+            block.serverTick(randomTick, 0, ctx => {
                 const { block } = ctx;
 
-                if (Math.random() < 0.5) { return; };
+                randomTick = global.intRan(60, 100); 
                 let spot = block.offset(ran(), ran(), ran());
                 if (!saltSet.has(String(spot.id))) { return; };
                 let aabb = AABB.ofSize(spot.pos, 3, 3, 3);
+                if (spot.id == "minecraft:snow") { aabb.inflate(2); };
                 let cleared = false;
                 
                 for (let x = Math.floor(aabb.minX); x <= Math.ceil(aabb.maxX); x++) {

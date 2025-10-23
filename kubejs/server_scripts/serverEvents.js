@@ -21,13 +21,13 @@ const reportPollution = (player, block) => {
 
 const brushCleaning = (player, block, item, facing) => {
     player.server.scheduleRepeatingInTicks(20, ctx => {
-        if (player.cooldowns.isOnCooldown(item)) { ctx.clear(); return; };
-        player.addItemCooldown(item, 20);
         let ray = player.rayTrace(player.reachDistance);
         if (!ray.block || ray.block?.id != block.id) { ctx.clear(); return; };
         if (!block.entityData.data.used) { ctx.clear(); return; };
         if (player.mainHandItem.id != "minecraft:brush") { ctx.clear(); return; };
         if (!player.usingItem) { ctx.clear(); return; };
+        if (player.cooldowns.isOnCooldown(item)) { ctx.clear(); return; };
+        player.addItemCooldown(item, 20);
 
         if (block.entityData.data.carbon === undefined) {
             block.mergeEntityData({ data: { used: Math.max(block.entityData.data.used - 1, 0) } });
@@ -45,7 +45,7 @@ const brushCleaning = (player, block, item, facing) => {
             });
         };
 
-        item.damageValue += 1;
+        item.damageValue += 1; if (item.damageValue >= item.maxDamage) { item.shrink(1); };
         let usedKey = usedMap[block.id]; if (!usedKey) { ctx.clear(); return; };
         let usedData = Math.floor((block.entityData.data.used / usedKey) * 2);
         block.set(block.id, { level: String(usedData) });

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "level=0": { "model": "kubejs:block/clean/chromium_filter" },
+    "level=1": { "model": "kubejs:block/dirty/chromium_filter_dirty" },
+    "level=2": { "model": "kubejs:block/filthy/chromium_filter_filthy" }
+  }
+}

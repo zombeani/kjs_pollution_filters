@@ -7,6 +7,7 @@ const facingMap = {
     "down": [0, -1, 0]
 };
 
+const usedMap = { "kubejs:reed_filter": 4, "kubejs:charcoal_filter": 8, "kubejs:limewater_filter": 8, "kubejs:chromium_filter": 16 };
 const pollutionSet = new Set(["adpother:carbon", "adpother:sulfur", "adpother:dust"]);
 const acidArray = ["tfc:vinegar", "tfc:milk_vinegar"];
 
@@ -18,8 +19,10 @@ const reportPollution = (player, block) => {
     return;
 };
 
-const brushCleaning = (player, block, item) => {
+const brushCleaning = (player, block, item, facing) => {
+    let oldFacing = facing;
     player.server.scheduleRepeatingInTicks(20, ctx => {
+        if (oldFacing != facing) { return; };
         let ray = player.rayTrace(player.reachDistance);
         if (!ray.block || ray.block?.id != block.id) { ctx.clear(); return; };
         if (!player.usingItem || !block.entityData.data.used) { ctx.clear(); return; };
@@ -42,12 +45,15 @@ const brushCleaning = (player, block, item) => {
         };
 
         item.damageValue += 1;
+        let usedKey = usedMap[block.id]; if (!usedKey) { return; };
+        let usedData = Math.floor((block.entityData.data.used / usedKey) * 2);
+        block.set(block.id, {level: String(usedData)});
         if (!["kubejs:charcoal_filter", "kubejs:chromium_filter"].includes(block.id)) { return; };
-        block.popItemFromFace("tfc:soot", player.facing.getOpposite());
+        block.popItemFromFace("tfc:soot", facing);
     });
 };
 
-const acidCleaning = (player, block, item) => {
+const acidCleaning = (player, block, item, facing) => {
         if (!item.nbt || !item.nbt.fluid) { return; };
         if (!acidArray.includes(item.nbt.fluid.FluidName)) { return; };
         if (item.nbt.fluid.Amount < 100) { return; };
@@ -72,8 +78,11 @@ const acidCleaning = (player, block, item) => {
             });
         };
 
-        block.popItemFromFace(Item.of("tfc:powder/sulfur", available), player.facing.getOpposite()); 
         if (item.nbt.fluid.Amount <= 0) { delete item.nbt.fluid; };
+        block.popItemFromFace(Item.of("tfc:powder/sulfur", available), facing);
+        let usedKey = usedMap[block.id]; if (!usedKey) { return; };
+        let usedData = Math.floor((block.entityData.data.used / usedKey) * 2);
+        block.set(block.id, {level: String(usedData)});
 };
 
 BlockEvents.rightClicked("tfc:bellows", event => {
@@ -112,7 +121,7 @@ BlockEvents.rightClicked("tfc:bellows", event => {
                 if (newBlock.id != "minecraft:air") { continue; };
 
                 newBlock.set(targetBlock.id, { density: targetBlock.properties.density });
-                targetBlock.set("minecraft:air");
+                targetBlock.set("minecraft:air"); return;
             };
         };
     };
@@ -133,7 +142,7 @@ BlockEvents.rightClicked("kubejs:charcoal_filter", event => {
     if (!block.entityData.data.used) { return; };
     if (player.mainHandItem.empty) { reportPollution(player, block); return; };
     if (player.mainHandItem.id != "minecraft:brush") { return; };
-    brushCleaning(player, block, item);
+    brushCleaning(player, block, item, event.facing);
 });
 
 BlockEvents.rightClicked("kubejs:limewater_filter", event => {
@@ -144,9 +153,9 @@ BlockEvents.rightClicked("kubejs:limewater_filter", event => {
     if (player.mainHandItem.empty) { reportPollution(player, block); return; };
 
     if (player.mainHandItem.id == "minecraft:brush") {
-        brushCleaning(player, block, item);
+        brushCleaning(player, block, item, event.facing);
     } else {
-        acidCleaning(player, block, item);
+        acidCleaning(player, block, item, event.facing);
     };
 });
 
@@ -158,9 +167,9 @@ BlockEvents.rightClicked("kubejs:chromium_filter", event => {
     if (player.mainHandItem.empty) { reportPollution(player, block); return; };
 
     if (player.mainHandItem.id == "minecraft:brush") {
-        brushCleaning(player, block, item);
+        brushCleaning(player, block, item, event.facing);
     } else {
-        acidCleaning(player, block, item);
+        acidCleaning(player, block, item, event.facing);
     };
 });
 

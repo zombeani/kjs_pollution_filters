@@ -24,13 +24,13 @@ StartupEvents.registry("minecraft:block", event => {
                     let targetBlock = block.offset(direction);
                     if (targetBlock.id != "adpother:carbon") { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 4) } });
-                    let usedData = Math.floor((block.entityData.data.used / 4) * 3);
+                    let usedData = Math.floor((block.entityData.data.used / 4) * 2);
                     block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
         })
-        .textureAll("tfc:block/thatch")
+        .textureAll("kubejs:block/clean/reed_filter")
         .displayName("Reed Filter");
 
     event.create("kubejs:charcoal_filter")
@@ -53,13 +53,13 @@ StartupEvents.registry("minecraft:block", event => {
                     let targetBlock = block.offset(direction);
                     if (!sootSet.has(String(targetBlock.id))) { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 8) } });
-                    let usedData = Math.floor((block.entityData.data.used / 8) * 3);
+                    let usedData = Math.floor((block.entityData.data.used / 8) * 2);
                     block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
         })
-        .textureAll("minecraft:block/coal_block")
+        .textureAll("kubejs:block/clean/charcoal_filter")
         .displayName("Charcoal Filter");
 
     event.create("kubejs:limewater_filter")
@@ -82,13 +82,13 @@ StartupEvents.registry("minecraft:block", event => {
                     let targetBlock = block.offset(direction);
                     if (targetBlock.id != "adpother:sulfur") { continue; };
                     block.mergeEntityData({ data: { used: Math.min(block.entityData.data.used + 1, 8) } });
-                    let usedData = Math.floor((block.entityData.data.used / 4) * 8);
+                    let usedData = Math.floor((block.entityData.data.used / 8) * 2);
                     block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
         })
-        .textureAll("tfc:block/rock/chiseled/limestone")
+        .textureAll("kubejs:block/clean/limewater_filter")
         .displayName("Limewater Filter");
 
     event.create("kubejs:chromium_filter")
@@ -121,15 +121,16 @@ StartupEvents.registry("minecraft:block", event => {
                     };
 
                     let combined = Math.min(carbonData + sulfurData, 16);
+                    Utils.server.tell(combined)
 
                     block.mergeEntityData({ data: { carbon: carbonData, sulfur: sulfurData, used: combined } });
-                    let usedData = Math.floor((combined / 16) * 3);
+                    let usedData = Math.floor((combined / 16) * 2);
                     block.set(block.id, {level: String(usedData)});
                     targetBlock.set("minecraft:air"); return;
                 };
             });
         })
-        .textureAll("minecraft:block/iron_block")
+        .textureAll("kubejs:block/clean/chromium_filter")
         .displayName("Chromium Filter");
 
     event.create("kubejs:wicker_screen")

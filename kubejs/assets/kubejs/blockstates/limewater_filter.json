@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "level=0": { "model": "kubejs:block/clean/limewater_filter" },
+    "level=1": { "model": "kubejs:block/dirty/limewater_filter_dirty" },
+    "level=2": { "model": "kubejs:block/filthy/limewater_filter_filthy" }
+  }
+}

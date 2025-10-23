@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "level=0": { "model": "kubejs:block/clean/charcoal_filter" },
+    "level=1": { "model": "kubejs:block/dirty/charcoal_filter_dirty" },
+    "level=2": { "model": "kubejs:block/filthy/charcoal_filter_filthy" }
+  }
+}

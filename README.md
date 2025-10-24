@@ -14,10 +14,13 @@ Minecraft Forge 1.20.1, TerraFirmaCraft, FirmaLife, Pollution of the Realms, Adv
 these filters help reduce pollution from crafting and smelting, giving you multiple options depending on your tech level and available resources.
 
 tfc bellows can now push pollution and items.  
+updraft venturi can automatically push bellows.  
 right click a filter block with an empty hand to check how much pollution it has stored (if any).  
 brush filters to remove soot or residue.  
 some filters can be cleaned using vinegar in a tfc-compatible fluid container.  
 all filters except for reed can be broken and replaced to clean it, but you lose the resources.  
+salt crystals slowly remove pollution and snow.  
+adds gas routing system with pipes and pumps.
 
 ## filter types
 *reed filter*  

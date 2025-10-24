@@ -67,3 +67,7 @@ prevents pollution backflow by storing and blacklisting the last active output s
 
 *gas pipe*  
 connects gas pumps to each other.
+
+*venturi*  
+automatically pushes bellows it is faced into if it has a tfc compatible heat source underneath it.  
+the push speed is dependent on the temperature of the heat source.

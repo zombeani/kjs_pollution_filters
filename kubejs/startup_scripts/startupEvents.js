@@ -251,12 +251,18 @@ StartupEvents.registry("minecraft:block", event => {
         .displayName("Venturi");
 });
 
-const midFlameArray = ["kubejs:reed_filter", "kubejs:wicker_screen", "kubejs:cork_block"];
+let burnableBlocks = ["kubejs:reed_filter", "kubejs:wicker_screen", "kubejs:cork_block"];
+let fieldName = ["f_221147_", "f_53422_"]
 
 BlockEvents.modification(event => {
-    midFlameArray.forEach(entry => {
-        event.modify("minecraft:fire", block => {
-            block.setFlammable(entry, 30, 60);
+    burnableBlocks.forEach(burnableBlock => {
+        event.modify(burnableBlock, block => {
+            fieldName.forEach(name => {
+                let oddsField = Blocks.FIRE.class.getDeclaredField(name);
+                oddsField.setAccessible(true);
+                let oddsMap = oddsField.get(Blocks.FIRE);
+                oddsMap.put(block, 30);
+            });
         });
     });
 });

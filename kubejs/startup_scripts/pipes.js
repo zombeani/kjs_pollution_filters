@@ -96,7 +96,7 @@ StartupEvents.registry("minecraft:block", event => {
                         if (!pollutionSet.has(String(targetBlock.id))) { continue; };
 
                         for (let newDirection of Object.keys(Direction.ALL)) {
-                            if (newDirection == Direction[outputBlock.properties.facing]) { continue; };
+                            if (newDirection == Direction[outputBlock.properties.facing].opposite) { continue; };
                             let newBlock = outputBlock.offset(newDirection);
                             if (newBlock.id != "minecraft:air") { continue; };
 

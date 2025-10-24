@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "kubejs:block/venturi",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "kubejs:block/venturi"
+    },
+    "facing=south": {
+      "model": "kubejs:block/venturi",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kubejs:block/venturi",
+      "y": 270
+    }
+  }
+}

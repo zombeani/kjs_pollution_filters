@@ -222,6 +222,33 @@ StartupEvents.registry("minecraft:block", event => {
         })
         .textureAll("kubejs:block/cork_block")
         .displayName("Cork Block");
+
+    event.create("kubejs:venturi")
+        .hardness(2.0)
+        .resistance(1.5)
+        .opaque(false)
+        .notSolid()
+        .tagBlock('minecraft:mineable/pickaxe')
+        .box(2, 0, 2, 14, 12, 14)
+        .soundType(SoundType.COPPER)
+        .property(BlockProperties.HORIZONTAL_FACING)
+        .placementState(state => { state.setValue(BlockProperties.HORIZONTAL_FACING, !state.player.shiftKeyDown ? state.horizontalDirection.opposite : state.horizontalDirection); return state; })
+        .blockEntity(block => {
+            block.serverTick(100, 0, ctx => {
+                const { block } = ctx;
+
+                let downBlock = block.offset(Direction.DOWN);
+                if (!downBlock?.entityData?.temperature) { return; };
+                let temperature = downBlock.entityData.temperature;
+
+                let forwardBlock = block.offset(block.properties.facing);
+                if (forwardBlock.id != "tfc:bellows") { return; };
+                if (Math.abs(forwardBlock.entityData.pushed - block.level.time) < Math.ceil(250 - (temperature * 0.1))) { return; };
+                forwardBlock.entity.onRightClick(); forwardBlock.entity.markForSync();
+                global.bellowPush(forwardBlock); return;
+            });
+        })
+        .displayName("Venturi");
 });
 
 const midFlameArray = ["kubejs:reed_filter", "kubejs:wicker_screen", "kubejs:cork_block"];
